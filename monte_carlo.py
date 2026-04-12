@@ -2,6 +2,8 @@ import numpy as np
 import pandas as pd
 import plotly.express as ex
 
+from data_retrieval import *
+
 # Generate random portfolios and plot the efficient frontier
 def run_monte_carlo(tickers, expected_returns, cov_matrix, num_portfolios=10000):
 
@@ -61,3 +63,7 @@ def run_monte_carlo(tickers, expected_returns, cov_matrix, num_portfolios=10000)
     )
     
     return fig, portfolio_data
+
+df = DataSet()
+fig, portfolio_data = run_monte_carlo(df.tickers, df.return_vector, df.covariance_matrix)
+fig.show()  

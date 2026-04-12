@@ -3,15 +3,19 @@ import numpy as np
 import yfinance as yf
 
 
-def get_tickers():
-    # Tickers are pulled from a maintained CSV file. 
-    # It may become outdated. Wikipedia blocks attempts to scrape.
-    # Will implement a more robust solution later.
+# def get_tickers():
+#     # Tickers are pulled from a maintained CSV file. 
+#     # It may become outdated. Wikipedia blocks attempts to scrape.
+#     # Will implement a more robust solution later.
 
-    url = "https://datahub.io/core/s-and-p-500-companies/r/constituents.csv"
-    df = pd.read_csv(url)
-    tickers = df["Symbol"].str.replace(".", "-", regex=False).tolist()
-    return tickers
+#     url = "https://datahub.io/core/s-and-p-500-companies/r/constituents.csv"
+#     df = pd.read_csv(url)
+#     tickers = df["Symbol"].str.replace(".", "-", regex=False).tolist()
+#     return tickers
+
+
+def get_tickers():
+    return ["AAPL", "JNJ", "XOM", "JPM", "NEE"]
 
 def get_historical_data(tickers, time_frame): 
     data = yf.download(tickers, period=time_frame, auto_adjust=True)

@@ -1,13 +1,11 @@
 import numpy as np
 import pandas as pd
 import plotly.express as ex
-from data_retrieval import DataSet
 
-def calculate_sharpe_ratio(weights, expected_returns, cov_matrix, risk_free_rate=0.0):
-    port_return = np.dot(weights, expected_returns)
-    port_variance = np.dot(weights.T, np.dot(cov_matrix, weights))
-    port_volatility = np.sqrt(port_variance)
-    return (port_return - risk_free_rate) / port_volatility
+from data_retrieval import DataSet
+from optimizer import *
+
+
 
 def run_monte_carlo(tickers, expected_returns, cov_matrix, num_portfolios=10000):
     num_assets = len(tickers)

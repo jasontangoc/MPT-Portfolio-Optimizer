@@ -1,6 +1,5 @@
 import scipy.optimize as sco
 
-from monte_carlo import *
 from data_retrieval import *
 
 def calculate_sharpe_ratio(weights, expected_returns, cov_matrix, risk_free_rate=0.0):

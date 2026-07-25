@@ -7,7 +7,8 @@ from optimizer import *
 
 
 
-def run_monte_carlo(tickers, expected_returns, cov_matrix, num_portfolios=10000):
+def run_monte_carlo(tickers, expected_returns, cov_matrix, num_portfolios=10000, seed=42):
+    np.random.seed(seed)  # Fixed seed so results are reproducible between runs
     num_assets = len(tickers)
 
     results_returns = []

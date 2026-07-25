@@ -2,7 +2,7 @@ import scipy.optimize as sco
 
 from data_retrieval import *
 
-def calculate_sharpe_ratio(weights, expected_returns, cov_matrix, risk_free_rate=0.0):
+def calculate_sharpe_ratio(weights, expected_returns, cov_matrix, risk_free_rate=RISK_FREE_RATE):
     port_return = np.dot(weights, expected_returns)
     port_variance = np.dot(weights.T, np.dot(cov_matrix, weights))
     port_volatility = np.sqrt(port_variance)

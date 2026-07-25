@@ -2,6 +2,8 @@ import pandas as pd
 import numpy as np
 import yfinance as yf
 
+RISK_FREE_RATE = 0.02  # Rough 3-month T-bill. CAPM and the Sharpe ratio share it so they stay consistent.
+
 
 # def get_tickers():
 #     # Tickers are pulled from a maintained CSV file. 
@@ -46,7 +48,6 @@ def gen_log_returns_vec(log_returns):
 def gen_capm_return_vector(pct_returns, time_frame="1y"):
     # CAPM calculation: R_e = R_f + beta(R_m - R_f)
 
-    risk_free_rate = 0.02  # Example risk-free rate
     market_returns = gen_pct_returns(get_historical_data(["^GSPC"], time_frame))    # S&P 500 as market proxy
     market_rate = (market_returns.mean() * 252).values[0]                           # Annualize market return
 
@@ -61,7 +62,7 @@ def gen_capm_return_vector(pct_returns, time_frame="1y"):
         beta_value = cov_matrix.loc["Asset Return", "Market Return"] / cov_matrix.loc["Market Return", "Market Return"]
         beta.append(beta_value)
     beta = np.array(beta)
-    expected_returns = risk_free_rate + beta * (market_rate - risk_free_rate)
+    expected_returns = RISK_FREE_RATE + beta * (market_rate - RISK_FREE_RATE)
     return expected_returns
 
 def gen_covariance_matrix(returns):

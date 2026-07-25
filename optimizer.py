@@ -21,5 +21,8 @@ def optimize_portfolio(dataset):
                                    constraints=constraints,
                                    bounds=bounds
                                    )
-    
+
+    if not optimum_weights.success:
+        raise RuntimeError(f"Optimizer failed to converge: {optimum_weights.message}")
+
     return optimum_weights.x

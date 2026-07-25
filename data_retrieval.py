@@ -67,8 +67,10 @@ def gen_covariance_matrix(returns):
 
 class DataSet:
     def __init__(self, time_frame="1y", CAPM=True):
-        self.tickers = get_tickers()
-        self.historical_data = get_historical_data(self.tickers, time_frame)
+        self.historical_data = get_historical_data(get_tickers(), time_frame)
+        # yfinance sorts columns alphabetically and drops tickers that fail to
+        # download, so the ticker list has to come from the data, not the request
+        self.tickers = list(self.historical_data.columns)
         if CAPM:
             self.returns = gen_pct_returns(self.historical_data)
             self.return_vector = gen_capm_return_vector(self.returns, time_frame)

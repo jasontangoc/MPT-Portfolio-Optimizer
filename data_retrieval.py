@@ -19,7 +19,10 @@ def get_tickers():
 
 def get_historical_data(tickers, time_frame): 
     data = yf.download(tickers, period=time_frame, auto_adjust=True)
-    return data["Close"].dropna(axis=1, how="all")
+    close = data["Close"].dropna(axis=1, how="all")
+    if close.empty:
+        raise RuntimeError("No price data downloaded. Check tickers and connection.")
+    return close
 
 
 
